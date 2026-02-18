@@ -1,0 +1,51 @@
+/* 1. Importamos las fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bree+Serif&display=swap');
+
+/* 2. Definimos las variables globales (El ADN de tu sitio) */
+:root {
+  /* Colores de la marca */
+  --pastini-black: #000000;
+  --pastini-white: #ffffff;
+  --pastini-gold: #e9b65b; /* Asumiendo que faltaba un 0 al final */
+
+  /* Fuentes */
+  --font-title: 'Bebas Neue', sans-serif;
+  --font-text: 'Bree Serif', serif;
+
+  /* --- OVERRIDES DE BOOTSTRAP 5 --- */
+  /* Con esto obligamos a Bootstrap a usar tus colores */
+  --bs-primary: var(--pastini-gold); 
+  --bs-primary-rgb: 233, 182, 80; /* El mismo color en formato RGB para sombras */
+  
+  --bs-body-font-family: var(--font-text); /* Fuente por defecto para todo el texto */
+  --bs-body-bg: var(--pastini-white);
+  --bs-body-color: var(--pastini-black);
+}
+
+/* 3. Ajustes finos para Títulos */
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+  font-family: var(--font-title);
+  letter-spacing: 1px; /* Bebas Neue queda mejor con un poquito de aire */
+}
+
+/* Botones personalizados: Queremos que el texto sea negro o blanco según el fondo?
+   En el dorado, el texto negro se lee mejor. */
+.btn-primary {
+  background-color: var(--pastini-gold);
+  border-color: var(--pastini-gold);
+  color: var(--pastini-black); /* Texto negro sobre fondo dorado */
+  font-family: var(--font-title);
+  font-size: 1.2rem; /* Un poco más grandes */
+}
+
+.btn-primary:hover {
+  background-color: #d4a036; /* Un dorado un poco más oscuro al pasar el mouse */
+  border-color: #d4a036;
+  color: black;
+}
+
+/* Fondo negro elegante para secciones especiales */
+.bg-black-theme {
+  background-color: var(--pastini-black);
+  color: var(--pastini-gold);
+}

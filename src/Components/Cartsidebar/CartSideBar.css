@@ -1,0 +1,15 @@
+.btn-carrito {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+}
+.Iniciarcompra {
+    background-color: #e9b65b;
+}
+
+.Vaciarcarrito {
+    background-color: #ffffff;
+}
+.TextSuccess {
+    color: #000000;
+}
