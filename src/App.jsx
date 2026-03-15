@@ -29,5 +29,4 @@ function App() {
   );
 }
 
-// 3. Exportamos el componente para que main.jsx lo pueda mostrar.
 export default App;

@@ -1,13 +1,8 @@
-// 1. IMPORTS: Traemos las herramientas necesarias
 import React, { useState, useEffect } from 'react';
-// Componentes visuales de Bootstrap (Botones, Tablas, Pestañas, Alertas, etc.)
 import { Container, Form, Button, Navbar, Card, Alert, Row, Col, Table, Tabs, Tab, Badge, Modal } from 'react-bootstrap';
-// Hooks para saber si el usuario está logueado y para navegar entre páginas
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-// Conexión a la Base de Datos (db)
 import { db } from '../../services/firebaseConfig';
-// Funciones de Firebase para leer, guardar, borrar y editar datos
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 
 const Admin = () => {
