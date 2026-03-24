@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, ListGroup, Card } from 'react-bootstrap';
-import { useCart } from '../../Context/CartContext'; // Revisá si tu carpeta es Context o context
+import { useCart } from '../../Context/CartContext'; 
 import { db } from '../../services/firebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'; 
 import { useNavigate } from 'react-router-dom';
@@ -14,13 +14,13 @@ const Checkout = () => {
   const [telefono, setTelefono] = useState("");
   const [direccion, setDireccion] = useState("");
   
-  // Nuevos Estados
-  const [formaEntrega, setFormaEntrega] = useState("Envio"); // Valor inicial: Envio
+  
+  const [formaEntrega, setFormaEntrega] = useState("Envio"); 
   const [metodoPago, setMetodoPago] = useState("Efectivo");
 
   const [procesando, setProcesando] = useState(false);
 
-  // ⚠️ TU NÚMERO DE WHATSAPP
+  
   const TELEFONO_DEL_LOCAL = "5493704252853"; 
 
   const handleConfirmar = async (e) => {
@@ -35,8 +35,8 @@ const Checkout = () => {
         cliente: { nombre, telefono, direccion: formaEntrega === "Envio" ? direccion : "Retira en Local" },
         items: carrito, 
         total: total,
-        formaEntrega, // Guardamos si es delivery o retiro
-        metodoPago,   // Guardamos como paga
+        formaEntrega, 
+        metodoPago,  
         fecha: serverTimestamp(),
         estado: "pendiente"
       };
@@ -141,14 +141,14 @@ const Checkout = () => {
               </Form.Group>
 
               {/* --- CAMPO DIRECCIÓN (CONDICIONAL) --- */}
-              {/* Solo aparece si formaEntrega es "Envio" */}
+           
               {formaEntrega === "Envio" && (
                   <div className="p-3 bg-light rounded mb-3 border">
                       <Form.Group>
                         <Form.Label>📍 Dirección de Entrega</Form.Label>
                         <Form.Control 
                             type="text" 
-                            required // Es obligatorio solo si es envío
+                            required 
                             placeholder="Calle, Altura, Barrio, Piso..." 
                             value={direccion} onChange={(e) => setDireccion(e.target.value)} 
                         />
@@ -166,7 +166,7 @@ const Checkout = () => {
           </Card>
         </Col>
 
-        {/* --- RESUMEN (Derecha) --- */}
+        {/* --- RESUMEN --- */}
         <Col md={5}>
             <Card className="shadow-sm border-0 bg-light">
                 <Card.Header className="bg-dark text-white">Resumen de Compra</Card.Header>

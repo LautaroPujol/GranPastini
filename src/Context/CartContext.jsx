@@ -46,7 +46,7 @@ export const CartProvider = ({ children }) => {
           return { ...item, cantidad: item.cantidad - 1 };
         }
         return item;
-      }).filter(item => item.cantidad > 0); // Si la cantidad queda en 0, lo borramos automáticamente
+      }).filter(item => item.cantidad > 0); 
     });
   };
 
@@ -64,7 +64,7 @@ export const CartProvider = ({ children }) => {
         carrito, 
         total, 
         agregarAlCarrito, 
-        decrementarCantidad, // 👈 No te olvides de exportarla acá
+        decrementarCantidad, 
         eliminarDelCarrito, 
         vaciarCarrito 
     }}>

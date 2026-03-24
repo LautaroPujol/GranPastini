@@ -10,7 +10,6 @@ import "./Home.css";
 // --- SUB-COMPONENTE: TARJETA INDIVIDUAL ---
 // Lo creamos aquí afuera para que cada pizza tenga su propia "memoria" de qué tamaño eligió el usuario.
 const ProductoIndividual = ({ prod, agregarAlCarrito }) => {
-  // Estado: ¿Eligió "Grande" o "Media"? (Por defecto Grande)
   const [tamanio, setTamanio] = useState("Grande");
 
   const handleAgregar = () => {
@@ -28,14 +27,14 @@ const ProductoIndividual = ({ prod, agregarAlCarrito }) => {
       id: prod.id,
       nombre: prod.nombre,
       precio: precioFinal,
-      variante: nombreVariante, // Para que en el ticket salga "Muzzarella (Media)"
+      variante: nombreVariante,
       imagen: prod.imagen
     });
   };
 
   return (
     <Card className="h-100 shadow-sm border-0 overflow-hidden hover-effect">
-      {/* IMAGEN */}
+
       <div style={{ height: '200px', overflow: 'hidden', position: 'relative' }}>
         <Card.Img
           variant="top"
@@ -61,7 +60,7 @@ const ProductoIndividual = ({ prod, agregarAlCarrito }) => {
 
         <hr className="my-3" />
 
-        {/* SELECTOR DE TAMAÑO: Solo aparece si la pizza tiene precioMedia */}
+
         <div className="mt-auto">
           {prod.precioMedia ? (
             <div className="mb-3">
@@ -69,7 +68,7 @@ const ProductoIndividual = ({ prod, agregarAlCarrito }) => {
                 type="radio"
                 id={`grande-${prod.id}`}
                 label={`Grande ($${prod.precio})`}
-                name={`tamanio-${prod.id}`} // El name agrupa los radio buttons
+                name={`tamanio-${prod.id}`} 
                 checked={tamanio === "Grande"}
                 onChange={() => setTamanio("Grande")}
                 className="mb-1"
@@ -84,7 +83,6 @@ const ProductoIndividual = ({ prod, agregarAlCarrito }) => {
               />
             </div>
           ) : (
-            // Si NO tiene media, mostramos solo el precio normal
             <div className="mb-3">
                <span className="fw-bold fs-3 text-dark">${prod.precio}</span>
             </div>
@@ -108,11 +106,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filtro, setFiltro] = useState("Todos");
-
-  // Traemos el carrito para saber la longitud y la función agregar
   const { agregarAlCarrito, carrito } = useCart();
-
-  // Estado para abrir/cerrar el carrito lateral
   const [showCart, setShowCart] = useState(false);
 
   
@@ -142,8 +136,8 @@ const Home = () => {
     : products.filter(p => p.categoria === filtro);
 
   // 3. FUNCIONES AUXILIARES PARA EL SIDEBAR
-  const handleClose = () => setShowCart(false); // Cierra
-  const handleShow = () => setShowCart(true);   // Abre
+  const handleClose = () => setShowCart(false);
+  const handleShow = () => setShowCart(true);   
 
   return (
     <div style={{ backgroundColor: '#f8f9fa', minHeight: '100vh' }}>
@@ -172,7 +166,6 @@ const Home = () => {
           ))}
         </div>
 
-        {/* --- CARGANDO... --- */}
         {loading && (
           <div className="text-center py-5">
             <Spinner animation="border" variant="primary" />
@@ -184,7 +177,7 @@ const Home = () => {
         <Row>
           {productosFiltrados.map((prod) => (
             <Col key={prod.id} xs={12} md={6} lg={4} className="mb-4">
-              {/* Aquí llamamos al componente que creamos arriba */}
+       
               <ProductoIndividual 
                 prod={prod} 
                 agregarAlCarrito={agregarAlCarrito} 

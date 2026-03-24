@@ -1,20 +1,17 @@
 import React from 'react';
 import { Offcanvas, ListGroup, Button } from 'react-bootstrap';
-// 👇 1. IMPORTANTE: Agregamos 'agregarAlCarrito' y 'decrementarCantidad' aquí
 import { useCart } from '../../Context/CartContext';
 import { Link } from 'react-router-dom';
 import "./CartSideBar.css"
 
 const CartSidebar = ({ show, handleClose }) => {
-
-    // 👇 2. Traemos las funciones nuevas del contexto para usarlas en los botones
     const {
         carrito,
         total,
         eliminarDelCarrito,
         vaciarCarrito,
-        agregarAlCarrito,    // Para el botón [+]
-        decrementarCantidad  // Para el botón [-]
+        agregarAlCarrito,    
+        decrementarCantidad  
     } = useCart();
 
     return (
@@ -48,7 +45,6 @@ const CartSidebar = ({ show, handleClose }) => {
                                     </div>
 
                                     {/* --- CONTROLES DE CANTIDAD (Abajo) --- */}
-                                    {/* Esta es la barra gris con los botones */}
                                     <div className="d-flex justify-content-between align-items-center bg-light rounded p-1">
 
                                         {/* ➖ BOTÓN RESTAR */}
@@ -56,7 +52,6 @@ const CartSidebar = ({ show, handleClose }) => {
                                             variant="outline-secondary"
                                             size="sm"
                                             className="rounded-circle btn-carrito"
-                                            // Al hacer click, llama a la función de restar que creaste en el Context
                                             onClick={() => decrementarCantidad(item.id, item.variante)}
                                         >
                                             -
@@ -70,13 +65,12 @@ const CartSidebar = ({ show, handleClose }) => {
                                             variant="outline-secondary"
                                             size="sm"
                                             className="rounded-circle btn-carrito"
-                                            // Al hacer click, suma 1 (reusa la función de agregar)
                                             onClick={() => agregarAlCarrito(item)}
                                         >
                                             +
                                         </Button>
 
-                                        {/* 🗑️ BOTÓN ELIMINAR (Separado a la derecha) */}
+                                        {/* 🗑️ BOTÓN ELIMINAR */}
                                         <Button
                                             variant="link"
                                             className="text-danger text-decoration-none ms-auto"

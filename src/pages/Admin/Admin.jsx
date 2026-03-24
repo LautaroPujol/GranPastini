@@ -7,15 +7,15 @@ import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from 'firebase
 
 const Admin = () => {
   // --- HOOKS DE NAVEGACIÓN Y SESIÓN ---
-  const { logout, user } = useAuth(); // Para saber quién es el usuario y poder salir
-  const navigate = useNavigate(); // Para redirigir (ej: al login si cierra sesión)
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
 
-  // --- ESTADOS (VARIABLES QUE CAMBIAN EN PANTALLA) ---
+
 
   // Controla qué pestaña estamos viendo: 'ventas' (Dashboard) o 'productos' (Carga)
   const [activeTab, setActiveTab] = useState('ventas');
 
-  // Estados para mostrar carteles de "Cargando...", Éxito o Error
+
   const [cargando, setCargando] = useState(false);
   const [mensaje, setMensaje] = useState("");
   const [error, setError] = useState("");
@@ -43,10 +43,10 @@ const Admin = () => {
   const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null); // Qué pedido estamos mirando
   const [showModal, setShowModal] = useState(false); // Si la ventanita está abierta o cerrada
 
-  // --------------------------------------------------------
-  // 1. CEREBRO DE DATOS (ACÁ ESTÁ LA MAGIA) 🧠
+
+  // 1. CEREBRO DE DATOS 
   // Esta función se ejecuta apenas entras a la página
-  // --------------------------------------------------------
+
   const obtenerDatos = async () => {
     try {
       // A) TRAER PRODUCTOS DE FIREBASE
@@ -65,7 +65,7 @@ const Admin = () => {
       let mapaMeses = {}; // Acá vamos a agrupar por mes (Ej: "2/2026": $50000)
 
       // Obtenemos la fecha de HOY en formato texto (Ej: "13/2/2026")
-      // Esto es CLAVE: Si la fecha del pedido no coincide con esto, no se suma al día.
+
       const hoyString = new Date().toLocaleDateString();
 
       // Recorremos pedido por pedido...
@@ -101,7 +101,7 @@ const Admin = () => {
       });
 
       // --- GUARDAMOS LOS RESULTADOS EN LOS ESTADOS PARA QUE SE VEAN EN PANTALLA ---
-      setVentasHoy(sumaHoy); // Actualizamos el cartel verde gigante
+      setVentasHoy(sumaHoy); 
 
       // Ordenamos los pedidos de hoy para que el más nuevo salga primero
       setPedidosHoy(listaHoy.sort((a, b) => b.fechaReal - a.fechaReal));
@@ -115,14 +115,11 @@ const Admin = () => {
     }
   };
 
-  // useEffect: Esto le dice a React "Ejecutá obtenerDatos() UNA VEZ cuando cargue la página"
   useEffect(() => {
     obtenerDatos();
   }, []);
 
-  // --------------------------------------------------------
   // 2. LÓGICA DE PRODUCTOS (Guardar en Base de Datos)
-  // --------------------------------------------------------
   const handleSubmitProducto = async (e) => {
     e.preventDefault(); // Evita que se recargue la página al enviar el form
     setCargando(true); setError(""); setMensaje(""); // Reseteamos mensajes
@@ -136,8 +133,8 @@ const Admin = () => {
       const datos = {
         nombre, categoria, descripcion,
         precio: Number(precio),
-        precioMedia: precioMedia ? Number(precioMedia) : null, // Si está vacío, guardamos null
-        imagen: imagen || "https://placehold.co/600x400?text=Sin+Foto" // Foto por defecto si no ponen nada
+        precioMedia: precioMedia ? Number(precioMedia) : null,
+        imagen: imagen || "https://placehold.co/600x400?text=Sin+Foto" 
       };
 
       if (idEditar) {
@@ -169,7 +166,7 @@ const Admin = () => {
     setPrecioMedia(prod.precioMedia || ""); setDescripcion(prod.descripcion || "");
     setImagen(prod.imagen || ""); setIdEditar(prod.id);
     setMensaje("Editando: " + prod.nombre);
-    window.scrollTo(0, 0); // Sube la pantalla arriba
+    window.scrollTo(0, 0); 
   };
 
   // Función para borrar (pide confirmación)
@@ -187,10 +184,8 @@ const Admin = () => {
   // Función para cerrar sesión
   const handleLogout = async () => { try { await logout(); navigate("/login"); } catch (e) { console.error(e); } };
 
-  // --- COMIENZO DEL DISEÑO VISUAL (JSX) ---
   return (
     <>
-      {/* BARRA SUPERIOR NEGRA */}
       <Navbar bg="dark" variant="dark" className="px-3 mb-4 d-flex justify-content-between">
         <Navbar.Brand>🎩 Admin Pastini</Navbar.Brand>
         <div className="d-flex gap-3 align-items-center">
@@ -201,7 +196,6 @@ const Admin = () => {
 
       <Container className="mb-5">
 
-        {/* SISTEMA DE PESTAÑAS (TABS) */}
         <Tabs activeKey={activeTab} onSelect={(k) => setActiveTab(k)} className="mb-4" fill>
 
           {/* =============================================
@@ -209,7 +203,7 @@ const Admin = () => {
              ============================================= */}
           <Tab eventKey="ventas" title="📈 CAJA Y REGISTROS">
 
-            {/* CARTEL VERDE GIGANTE (Total del Día) */}
+          
             <Row className="mb-4">
               <Col md={12}>
                 <Card className="bg-success text-white text-center shadow border-0 mb-3">
@@ -238,7 +232,7 @@ const Admin = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* Recorremos solo la lista de hoy */}
+                   
                       {pedidosHoy.map((pedido) => (
                         <tr key={pedido.id}>
                           <td>{pedido.fechaReal.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
@@ -249,7 +243,7 @@ const Admin = () => {
                           </td>
                         </tr>
                       ))}
-                      {/* Mensaje si está vacío */}
+                      
                       {pedidosHoy.length === 0 && (
                         <tr><td colSpan="4" className="text-center py-3">Aún no abriste caja hoy 😴</td></tr>
                       )}
@@ -271,7 +265,7 @@ const Admin = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* Recorremos el array de meses calculado arriba */}
+                     
                       {registroMensual.map((reg, index) => (
                         <tr key={index}>
                           <td>{reg.mes}</td>
